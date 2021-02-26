@@ -35,7 +35,7 @@ module.exports = {
   entry: ['@babel/polyfill', './index.js'],
   output: {
     filename: filename('js'),
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, './dist'),
   },
   resolve: {
     extensions: ['.js'],
@@ -46,8 +46,12 @@ module.exports = {
   },
   devtool: isDev ? 'source-map' : false,
   devServer: {
-    port: 3000,
+    contentBase: path.resolve(__dirname, './dist'),
+    writeToDisk: true,
+    watchContentBase: true,
+    inline: true,
     hot: true,
+    port: 3000,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -59,7 +63,7 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, 'src/favicon.ico'),
-          to: path.resolve(__dirname, 'dist'),
+          to: path.resolve(__dirname, './dist'),
         },
       ],
     }),
